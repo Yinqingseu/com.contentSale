@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.contentsale.mapper.UserShoppingRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.contentsale.pojo.UserShoppingRecord" >
+    <id column="record_id" property="recordId" jdbcType="INTEGER" />
+    <result column="content_id" property="contentId" jdbcType="INTEGER" />
+    <result column="shopping_time" property="shoppingTime" jdbcType="VARCHAR" />
+    <result column="shopping_count" property="shoppingCount" jdbcType="INTEGER" />
+    <result column="shopping_price" property="shoppingPrice" jdbcType="INTEGER" />
+    <result column="content_title" property="contentTitle" jdbcType="VARCHAR" />
+    <result column="content_picture" property="contentPicture" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    record_id, content_id, shopping_time, shopping_count, shopping_price, content_title, 
+    content_picture
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.contentsale.pojo.UserShoppingRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_shopping_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_shopping_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_shopping_record
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.contentsale.pojo.UserShoppingRecordExample" >
+    delete from user_shopping_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.contentsale.pojo.UserShoppingRecord" >
+    insert into user_shopping_record (record_id, content_id, shopping_time, 
+      shopping_count, shopping_price, content_title, 
+      content_picture)
+    values (#{recordId,jdbcType=INTEGER}, #{contentId,jdbcType=INTEGER}, #{shoppingTime,jdbcType=VARCHAR}, 
+      #{shoppingCount,jdbcType=INTEGER}, #{shoppingPrice,jdbcType=INTEGER}, #{contentTitle,jdbcType=VARCHAR}, 
+      #{contentPicture,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.contentsale.pojo.UserShoppingRecord" >
+    insert into user_shopping_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        record_id,
+      </if>
+      <if test="contentId != null" >
+        content_id,
+      </if>
+      <if test="shoppingTime != null" >
+        shopping_time,
+      </if>
+      <if test="shoppingCount != null" >
+        shopping_count,
+      </if>
+      <if test="shoppingPrice != null" >
+        shopping_price,
+      </if>
+      <if test="contentTitle != null" >
+        content_title,
+      </if>
+      <if test="contentPicture != null" >
+        content_picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="contentId != null" >
+        #{contentId,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingTime != null" >
+        #{shoppingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="shoppingCount != null" >
+        #{shoppingCount,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingPrice != null" >
+        #{shoppingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="contentTitle != null" >
+        #{contentTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contentPicture != null" >
+        #{contentPicture,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.contentsale.pojo.UserShoppingRecordExample" resultType="java.lang.Integer" >
+    select count(*) from user_shopping_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_shopping_record
+    <set >
+      <if test="record.recordId != null" >
+        record_id = #{record.recordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentId != null" >
+        content_id = #{record.contentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shoppingTime != null" >
+        shopping_time = #{record.shoppingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shoppingCount != null" >
+        shopping_count = #{record.shoppingCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.shoppingPrice != null" >
+        shopping_price = #{record.shoppingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.contentTitle != null" >
+        content_title = #{record.contentTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentPicture != null" >
+        content_picture = #{record.contentPicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_shopping_record
+    set record_id = #{record.recordId,jdbcType=INTEGER},
+      content_id = #{record.contentId,jdbcType=INTEGER},
+      shopping_time = #{record.shoppingTime,jdbcType=VARCHAR},
+      shopping_count = #{record.shoppingCount,jdbcType=INTEGER},
+      shopping_price = #{record.shoppingPrice,jdbcType=INTEGER},
+      content_title = #{record.contentTitle,jdbcType=VARCHAR},
+      content_picture = #{record.contentPicture,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.contentsale.pojo.UserShoppingRecord" >
+    update user_shopping_record
+    <set >
+      <if test="contentId != null" >
+        content_id = #{contentId,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingTime != null" >
+        shopping_time = #{shoppingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="shoppingCount != null" >
+        shopping_count = #{shoppingCount,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingPrice != null" >
+        shopping_price = #{shoppingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="contentTitle != null" >
+        content_title = #{contentTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contentPicture != null" >
+        content_picture = #{contentPicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.contentsale.pojo.UserShoppingRecord" >
+    update user_shopping_record
+    set content_id = #{contentId,jdbcType=INTEGER},
+      shopping_time = #{shoppingTime,jdbcType=VARCHAR},
+      shopping_count = #{shoppingCount,jdbcType=INTEGER},
+      shopping_price = #{shoppingPrice,jdbcType=INTEGER},
+      content_title = #{contentTitle,jdbcType=VARCHAR},
+      content_picture = #{contentPicture,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+</mapper>
