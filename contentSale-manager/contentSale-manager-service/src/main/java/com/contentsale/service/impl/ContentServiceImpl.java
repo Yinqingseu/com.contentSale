@@ -20,6 +20,10 @@ public class ContentServiceImpl implements ContentService {
 	
 	@Autowired
 	private ContentsMapper contentsMapper;//注入接口代理对象
+	
+	/**
+	 * 根据ID获取对应的内容content
+	 */
 	@Override
 	public Contents getContentById(Integer contentId) {
 		

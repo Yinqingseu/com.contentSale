@@ -11,7 +11,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>contentSale-manager-service</artifactId>
   <!-- 依赖管理 -->
 	<dependencies>
-  <dependency>
+  		<dependency>
 			<groupId>com.yinqing</groupId>
 			<artifactId>contentSale-manager-mapper</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -36,6 +36,10 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 	</dependencies>
 </project>

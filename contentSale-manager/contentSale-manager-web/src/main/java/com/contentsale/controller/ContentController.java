@@ -11,7 +11,8 @@ import com.contentsale.service.ContentService;
 
 
 /**
- * 内容管理C
+ * 内容管理Controller
+ * 调用service层的接口控制业务流程
  * @author YQ
  *
  */
@@ -20,6 +21,11 @@ public class ContentController {
 	@Autowired
 	private ContentService contentService;
 	
+	/**
+	 * 根据ID获取内容content页面
+	 * @param contentId
+	 * @return
+	 */
 	@RequestMapping("/content/{contentId}")
 	@ResponseBody
 	public Contents getContentById(@PathVariable(value="contentId") Integer contentId) {
