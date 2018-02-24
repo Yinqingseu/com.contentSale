@@ -29,10 +29,38 @@
 		<commons-fileupload.version>1.3.1</commons-fileupload.version>
 		<jedis.version>2.7.2</jedis.version>
 		<solrj.version>4.10.3</solrj.version>
+		<!-- freemarker -->
+		<freemarker.version>2.3.23</freemarker.version>
+		<!-- 上传下载 -->
+	    <commons-io>2.5</commons-io>
+	    <commons-codec>1.9</commons-codec>
 	</properties>
 	<!-- 只定义依赖的版本，并不实际依赖 -->
 	<dependencyManagement>
 		<dependencies>
+			 <!-- 文件上传包 -->
+		    <dependency>
+		      <groupId>commons-io</groupId>
+		      <artifactId>commons-io</artifactId>
+		      <version>${commons-io}</version>
+		    </dependency>
+		    <dependency>
+		      <groupId>commons-codec</groupId>
+		      <artifactId>commons-codec</artifactId>
+		      <version>${commons-codec}</version>
+		    </dependency>
+			<!-- freemarker依赖 -->
+		    <dependency>
+		      <groupId>org.freemarker</groupId>
+		      <artifactId>freemarker</artifactId>
+		      <version>${freemarker.version}</version>
+		    </dependency>
+			<!-- 映入JSON -->
+		    <dependency>
+		      <groupId>com.fasterxml.jackson.core</groupId>
+		      <artifactId>jackson-core</artifactId>
+		      <version>${jackson.version}</version>
+		    </dependency>
 			<!-- 时间操作组件 -->
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -119,6 +147,11 @@
 				<artifactId>spring-context</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+			<dependency>
+            	<groupId>org.springframework</groupId>
+            	<artifactId>spring-context-support</artifactId>
+            	<version>${spring.version}</version>
+        	</dependency>			
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-beans</artifactId>
