@@ -10,7 +10,7 @@ public interface UserShoppingRecordMapper {
 
     int deleteByExample(UserShoppingRecordExample example);
 
-    int deleteByPrimaryKey(Integer recordId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(UserShoppingRecord record);
 
@@ -18,7 +18,7 @@ public interface UserShoppingRecordMapper {
 
     List<UserShoppingRecord> selectByExample(UserShoppingRecordExample example);
 
-    UserShoppingRecord selectByPrimaryKey(Integer recordId);
+    UserShoppingRecord selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") UserShoppingRecord record, @Param("example") UserShoppingRecordExample example);
 

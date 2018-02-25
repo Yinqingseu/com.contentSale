@@ -1,73 +1,63 @@
 package com.contentsale.pojo;
 
 public class UserShoppingRecord {
-    private Integer recordId;
+    private Integer id;
 
-    private Integer contentId;
+    private Integer contentid;
 
-    private String shoppingTime;
+    private Integer userid;
 
-    private Integer shoppingCount;
+    private Double buyprice;
 
-    private Integer shoppingPrice;
+    private String buynum;
 
-    private String contentTitle;
+    private Long buytime;
 
-    private String contentPicture;
-
-    public Integer getRecordId() {
-        return recordId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRecordId(Integer recordId) {
-        this.recordId = recordId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getContentId() {
-        return contentId;
+    public Integer getContentid() {
+        return contentid;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setContentid(Integer contentid) {
+        this.contentid = contentid;
     }
 
-    public String getShoppingTime() {
-        return shoppingTime;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setShoppingTime(String shoppingTime) {
-        this.shoppingTime = shoppingTime == null ? null : shoppingTime.trim();
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
-    public Integer getShoppingCount() {
-        return shoppingCount;
+    public Double getBuyprice() {
+        return buyprice;
     }
 
-    public void setShoppingCount(Integer shoppingCount) {
-        this.shoppingCount = shoppingCount;
+    public void setBuyprice(Double buyprice) {
+        this.buyprice = buyprice;
     }
 
-    public Integer getShoppingPrice() {
-        return shoppingPrice;
+    public String getBuynum() {
+        return buynum;
     }
 
-    public void setShoppingPrice(Integer shoppingPrice) {
-        this.shoppingPrice = shoppingPrice;
+    public void setBuynum(String buynum) {
+        this.buynum = buynum == null ? null : buynum.trim();
     }
 
-    public String getContentTitle() {
-        return contentTitle;
+    public Long getBuytime() {
+        return buytime;
     }
 
-    public void setContentTitle(String contentTitle) {
-        this.contentTitle = contentTitle == null ? null : contentTitle.trim();
-    }
-
-    public String getContentPicture() {
-        return contentPicture;
-    }
-
-    public void setContentPicture(String contentPicture) {
-        this.contentPicture = contentPicture == null ? null : contentPicture.trim();
+    public void setBuytime(Long buytime) {
+        this.buytime = buytime;
     }
 }

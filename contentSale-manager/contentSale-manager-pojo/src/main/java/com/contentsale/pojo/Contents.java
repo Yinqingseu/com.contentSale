@@ -1,73 +1,63 @@
 package com.contentsale.pojo;
 
 public class Contents {
-    private Integer contentId;
+    private Integer id;
 
-    private Integer contentPrice;
+    private Double price;
 
-    private String contentTitle;
+    private String title;
 
-    private String contentAbstract;
+    private String pic;
 
-    private String contentAll;
+    private String summary;
 
-    private String contentPicture;
+    private String detail;
 
-    private Integer saleCount;
-
-    public Integer getContentId() {
-        return contentId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getContentPrice() {
-        return contentPrice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setContentPrice(Integer contentPrice) {
-        this.contentPrice = contentPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getContentTitle() {
-        return contentTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setContentTitle(String contentTitle) {
-        this.contentTitle = contentTitle == null ? null : contentTitle.trim();
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
-    public String getContentAbstract() {
-        return contentAbstract;
+    public String getPic() {
+        return pic;
     }
 
-    public void setContentAbstract(String contentAbstract) {
-        this.contentAbstract = contentAbstract == null ? null : contentAbstract.trim();
+    public void setPic(String pic) {
+        this.pic = pic == null ? null : pic.trim();
     }
 
-    public String getContentAll() {
-        return contentAll;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setContentAll(String contentAll) {
-        this.contentAll = contentAll == null ? null : contentAll.trim();
+    public void setSummary(String summary) {
+        this.summary = summary == null ? null : summary.trim();
     }
 
-    public String getContentPicture() {
-        return contentPicture;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setContentPicture(String contentPicture) {
-        this.contentPicture = contentPicture == null ? null : contentPicture.trim();
-    }
-
-    public Integer getSaleCount() {
-        return saleCount;
-    }
-
-    public void setSaleCount(Integer saleCount) {
-        this.saleCount = saleCount;
+    public void setDetail(String detail) {
+        this.detail = detail == null ? null : detail.trim();
     }
 }

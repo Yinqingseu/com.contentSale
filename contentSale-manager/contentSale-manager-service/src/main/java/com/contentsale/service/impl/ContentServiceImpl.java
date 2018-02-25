@@ -31,7 +31,7 @@ public class ContentServiceImpl implements ContentService {
 		ContentsExample example = new ContentsExample();
 		//添加查询条件,用户自定义查询条件
 		Criteria criteria = example.createCriteria();
-		criteria.andContentIdEqualTo(contentId);
+		criteria.andIdEqualTo(contentId);
 		List<Contents> list = contentsMapper.selectByExample(example);
 		if(list != null && list.size()>0) {
 			Contents content = list.get(0);
@@ -39,5 +39,21 @@ public class ContentServiceImpl implements ContentService {
 		}
 		return null;
 	}
+	
+	/**
+	 * 获取全部内容Content
+	 */
+	@Override
+	public List<Contents> getAllContents() {
+		ContentsExample example = new ContentsExample();
+		List<Contents> list = contentsMapper.selectByExample(example);
+		if(list != null && list.size() > 0) {
+			return list;
+		}
+		return null;
+	}
+	
+	
+	
 
 }
