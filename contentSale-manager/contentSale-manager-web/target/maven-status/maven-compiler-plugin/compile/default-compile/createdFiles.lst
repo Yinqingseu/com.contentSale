@@ -1,6 +1,5 @@
 com\contentsale\controller\ContentController.class
 com\contentsale\controller\ApiController.class
-com\contentsale\controller\IndexController.class
-com\contentsale\controller\PageController.class
+com\contentsale\controller\AccountController.class
 com\contentsale\controller\LoginController.class
 com\contentsale\controller\UserController.class
