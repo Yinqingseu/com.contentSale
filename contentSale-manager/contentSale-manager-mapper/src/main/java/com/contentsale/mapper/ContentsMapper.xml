@@ -123,7 +123,16 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  
+  <!-- 设置： 将插入数据的主键返回并添加到Contents对象中-->
   <insert id="insert" parameterType="com.contentsale.pojo.Contents" >
+   <!-- keyProperty：将查询到的主键值设置到parameterType对象的哪个属性中 -->  
+        <!-- order：SELECT LAST_INSERT_ID()语句的执行顺序（相对于insert语句来说的执行顺序） -->  
+        <!-- resultType：指定SELECT LAST_INSERT_ID()语句的结果类型 -->  
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">  
+            <!-- SELECT LAST_INSERT_ID()：得到刚insert到数据表中的记录的主键值，只适用于自增主键 -->  
+            SELECT LAST_INSERT_ID()  
+        </selectKey>  
     insert into contents (id, price, title, 
       pic, summary, detail
       )

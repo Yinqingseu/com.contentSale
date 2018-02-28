@@ -21,6 +21,22 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	private ContentsMapper contentsMapper;//注入接口代理对象
 	
+	
+	
+	
+	/**
+	 * 获取全部内容Content
+	 */
+	@Override
+	public List<Contents> getAllContents() {
+		ContentsExample example = new ContentsExample();
+		List<Contents> list = contentsMapper.selectByExample(example);
+		if(list != null && list.size() > 0) {
+			return list;
+		}
+		return null;
+	}
+	
 	/**
 	 * 根据ID获取对应的内容content
 	 */
@@ -41,19 +57,33 @@ public class ContentServiceImpl implements ContentService {
 	}
 	
 	/**
-	 * 获取全部内容Content
+	 * 数据表插入一条内容
 	 */
 	@Override
-	public List<Contents> getAllContents() {
-		ContentsExample example = new ContentsExample();
-		List<Contents> list = contentsMapper.selectByExample(example);
-		if(list != null && list.size() > 0) {
-			return list;
-		}
-		return null;
+	public void insertContent(Contents content) {
+		int record = contentsMapper.insert(content);
 	}
 	
-	
+	/**
+	 * 更新对应id内容
+	 */
+	@Override
+	public void updateContentById(Integer id, String title, String summary, 
+			String image, String detail, Double price) {
+		// TODO Auto-generated method stub
+		ContentsExample example = new ContentsExample();
+		//添加查询条件,用户自定义查询条件
+		Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(id);
+		Contents content = new Contents();
+		content.setId(id);
+		content.setDetail(detail);
+		content.setPic(image);
+		content.setPrice(price);
+		content.setSummary(summary);
+		content.setTitle(title);
+		contentsMapper.updateByExample(content, example);
+	}
 	
 
 }

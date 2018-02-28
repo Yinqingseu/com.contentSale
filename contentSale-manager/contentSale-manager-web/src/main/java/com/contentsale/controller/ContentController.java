@@ -65,26 +65,6 @@ public class ContentController {
 	}
 	
 	
-	
-	/**
-	 * 发布内容页面
-	 * @return
-	 */
-	@RequestMapping("/public")
-	public String publicContent() {
-		return "public";
-	}
-	
-	
-	/**
-	 * 内容提交结果页面
-	 * @return
-	 */
-	@RequestMapping("/publicSubmit")
-	public String submitContent() {
-		return "publicSubmit";
-	}
-	
 	/**
 	 * 内容查看页面
 	 * @param id
@@ -110,6 +90,41 @@ public class ContentController {
 		return "show";
 	}
 	
+	/**
+	 * 内容编辑页面
+	 * @param id
+	 * @param session
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/edit")
+	public String editContent(@RequestParam("id") int id,HttpSession session,Model map) {
+		//获取用户信息
+		User user = (User) session.getAttribute("user");
+		if(user == null) { //未登录
+			return "redirect:login";
+		}
+		int userType = user.getUsertype() & 0xFF; //获取用户类型,Byte转int	
+		if(userType == 0) { //买家账号
+			return "redirect:login";
+		}
+		//根据ID号获取content
+		Contents content = contentService.getContentById(id);
+		map.addAttribute("product", content);
+		return "edit";
+	}
+	
+	@RequestMapping("/editSubmit")
+	public String editSubmit(@RequestParam("id") int id,@RequestParam("title") String title ,@RequestParam("summary") String summary ,
+			@RequestParam("image") String image ,@RequestParam("detail") String detail,
+			@RequestParam("price") Double price,HttpSession session,Model map) {
+		//更新content表对应id内容
+		contentService.updateContentById(id, title, summary, image, detail, price);
+		//根据ID号获取content
+		Contents content = contentService.getContentById(id);
+		map.addAttribute("product", content);
+		return "editSubmit";
+	}
 
 	/**
 	 * 根据ID获取内容content页面
