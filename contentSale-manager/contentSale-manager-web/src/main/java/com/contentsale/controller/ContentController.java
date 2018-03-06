@@ -110,20 +110,17 @@ public class ContentController {
 		}
 		//根据内容ID获取内容
 		Contents content = contentService.getContentById(id);
-		System.out.println("content detail:"+content.getDetail());
 		//当前用户购买记录获取
 		UserShoppingRecord record = shoppingRecordService.getShoppingRecordByContentId(id,user.getId());
 		if(record == null) { //未购买过
 			Product product = productService.AssignProductAttr(content, false, false, 0, null, null);
 			map.addAttribute("product", product);
-			System.out.println("product detail:"+product.getDetail());
 		}else {//购买过
 			int buyNum = record.getBuynum();
 			Double buyPrice = record.getBuyprice();
 			String buyTime = record.getBuytime();
 			//赋值product交互对象
 			Product product = productService.AssignProductAttr(content, true, true, buyNum, buyPrice, buyTime);
-			System.out.println("product detail:"+product.getDetail());
 			map.addAttribute("product", product);
 		}
 		

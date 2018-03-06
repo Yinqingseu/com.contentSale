@@ -69,5 +69,6 @@
 	<mvc:resources location="WEB-INF/js/" mapping="/js/**"></mvc:resources>
 	<mvc:resources location="WEB-INF/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="WEB-INF/template/include/" mapping="/include/**"></mvc:resources>
+	<mvc:resources location="/uploadImgs/" mapping="/uploadImgs/**"></mvc:resources> <!-- 上传图片存放位置 -->
 	
 </beans>
