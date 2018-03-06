@@ -4,8 +4,11 @@ com\contentsale\pojo\UserExample$Criterion.class
 com\contentsale\pojo\UserShoppingRecordExample$Criterion.class
 com\contentsale\pojo\ContentsExample$Criteria.class
 com\contentsale\pojo\Contents.class
+com\contentsale\pojo\Product.class
 com\contentsale\pojo\UserExample.class
 com\contentsale\pojo\UserShoppingRecordExample$Criteria.class
+com\contentsale\pojo\UserShoppingRecordKey.class
+com\contentsale\pojo\BuyInfo.class
 com\contentsale\pojo\UserExample$GeneratedCriteria.class
 com\contentsale\pojo\UserShoppingRecordExample.class
 com\contentsale\pojo\ContentsExample$GeneratedCriteria.class

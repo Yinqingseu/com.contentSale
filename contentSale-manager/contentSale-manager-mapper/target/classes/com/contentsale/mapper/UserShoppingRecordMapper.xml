@@ -3,7 +3,7 @@
 <mapper namespace="com.contentsale.mapper.UserShoppingRecordMapper" >
   <resultMap id="BaseResultMap" type="com.contentsale.pojo.UserShoppingRecord" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="contentId" property="contentid" jdbcType="INTEGER" />
+    <id column="contentId" property="contentid" jdbcType="INTEGER" />
     <result column="userId" property="userid" jdbcType="INTEGER" />
     <result column="buyPrice" property="buyprice" jdbcType="DOUBLE" />
     <result column="buyNum" property="buynum" jdbcType="VARCHAR" />
@@ -84,15 +84,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.contentsale.pojo.UserShoppingRecordKey" >
     select 
     <include refid="Base_Column_List" />
     from user_shopping_record
     where id = #{id,jdbcType=INTEGER}
+      and contentId = #{contentid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="com.contentsale.pojo.UserShoppingRecordKey" >
     delete from user_shopping_record
     where id = #{id,jdbcType=INTEGER}
+      and contentId = #{contentid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.contentsale.pojo.UserShoppingRecordExample" >
     delete from user_shopping_record
@@ -100,7 +102,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  
+  <!-- 设置： 将插入数据的主键返回并添加到UserShoppingRecord对象中  YQ-->  
   <insert id="insert" parameterType="com.contentsale.pojo.UserShoppingRecord" >
+      <!-- keyProperty：将查询到的主键值设置到parameterType对象的哪个属性中 -->    
+        <!-- order：SELECT LAST_INSERT_ID()语句的执行顺序（相对于insert语句来说的执行顺序） -->    
+        <!-- resultType：指定SELECT LAST_INSERT_ID()语句的结果类型 -->    
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">    
+            <!-- SELECT LAST_INSERT_ID()：得到刚insert到数据表中的记录的主键值，只适用于自增主键 -->    
+            SELECT LAST_INSERT_ID()    
+        </selectKey>    
+      
     insert into user_shopping_record (id, contentId, userId, 
       buyPrice, buyNum, buyTime
       )
@@ -198,9 +210,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.contentsale.pojo.UserShoppingRecord" >
     update user_shopping_record
     <set >
-      <if test="contentid != null" >
-        contentId = #{contentid,jdbcType=INTEGER},
-      </if>
       <if test="userid != null" >
         userId = #{userid,jdbcType=INTEGER},
       </if>
@@ -215,14 +224,15 @@
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
+      and contentId = #{contentid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.contentsale.pojo.UserShoppingRecord" >
     update user_shopping_record
-    set contentId = #{contentid,jdbcType=INTEGER},
-      userId = #{userid,jdbcType=INTEGER},
+    set userId = #{userid,jdbcType=INTEGER},
       buyPrice = #{buyprice,jdbcType=DOUBLE},
       buyNum = #{buynum,jdbcType=VARCHAR},
       buyTime = #{buytime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
+      and contentId = #{contentid,jdbcType=INTEGER}
   </update>
 </mapper>

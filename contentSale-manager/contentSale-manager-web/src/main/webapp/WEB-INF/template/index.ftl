@@ -33,11 +33,11 @@
                     <#list productList as x>
                         <li id="p-${x.id}">
                             <a href="/show?id=${x.id}" class="link">
-                                <div class="img"><img src="${x.pic}" alt="${x.title}"></div>
-                                <h3>${x.title}</h3>
+                                <div class="img"><img src="${x.pic}" "></div>
+                                <h3>${x.title}&emsp;&emsp;&emsp;&emsp;<#if user?? && user.usertype==1 && x.isSell>售出数量：<span class="v-value">${x.sellNum}</span></#if></h3>
                                 <div class="price"><span class="v-unit">¥</span><span class="v-value">${x.price}</span></div>
                                 <#if user?? && user.usertype==0 && x.isBuy><span class="had"><b>已购买</b></span></#if>
-                                <#if user?? && user.usertype==1 && x.isSell><span class="had"><b>已售出</b></span></#if>
+                                <#if user?? && user.usertype==1 && x.isSell><span class="had"><b>已售出:</b></span></#if>
                             </a>
                             <#if user?? && user.usertype==1 && !x.isSell><span class="u-btn u-btn-normal u-btn-xs del" data-del="${x.id}">删除</span></#if>
                         </li>

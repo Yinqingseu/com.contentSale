@@ -14,21 +14,23 @@
             <div class="price">
                 <span class="v-unit">¥</span><span class="v-value">${product.price}</span>
             </div>
-            <div class="num">数量：<span id="plusNum" class="lessNum"><a>-</a></span><span class="totalNum"
-                                                                                          id="allNum">${product.buynum}</span><span
-                    id="addNum" class="moreNum"><a>+</a></span></div>
+             <#if user?? && user.usertype==0>
+            <div class="num">数量：<span id="plusNum" class="lessNum"><a>-</a></span>
+            <span class="totalNum" id="allNum">${product.buyNum}</span> <span id="addNum" class="moreNum"><a>+</a></span></div>
+            </#if>
+            
             <div class="oprt f-cb">
                 <#if user?? && user.usertype==0>
                     <#if product.isBuy>
-                        <button class="u-btn u-btn-primary" id="add" data-id="${product.id}"
-                                data-title="${product.title}" data-price="${product.price}">
-                            再次购买
+                        <button class="u-btn u-btn-normal" id="add" data-id="${product.id}"  style="cursor:not-allowed"
+                                data-title="${product.title}" data-price="${product.price}" disabled="disabled">
+                            购买
                         </button>
-                        <span class="buyprice">当时购买价格：¥${product.buyprice} 数量：${product.buynum}</span>
+                        <span class="buyprice">当时购买价格：¥${product.buyPrice} 数量：${product.buyNum}</span>
                     <#else>
                         <button class="u-btn u-btn-primary" id="add" data-id="${product.id}"
                                 data-title="${product.title}" data-price="${product.price}">
-                            加入购物车
+                            购买
                         </button>
                     </#if>
                 </#if>

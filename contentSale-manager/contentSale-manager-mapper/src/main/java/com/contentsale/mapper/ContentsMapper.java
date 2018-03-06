@@ -16,21 +16,15 @@ public interface ContentsMapper {
 
     int insertSelective(Contents record);
 
-    List<Contents> selectByExampleWithBLOBs(ContentsExample example);
-
     List<Contents> selectByExample(ContentsExample example);
 
     Contents selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Contents record, @Param("example") ContentsExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Contents record, @Param("example") ContentsExample example);
-
     int updateByExample(@Param("record") Contents record, @Param("example") ContentsExample example);
 
     int updateByPrimaryKeySelective(Contents record);
-
-    int updateByPrimaryKeyWithBLOBs(Contents record);
 
     int updateByPrimaryKey(Contents record);
 }

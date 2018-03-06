@@ -7,9 +7,7 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="pic" property="pic" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.contentsale.pojo.Contents" extends="BaseResultMap" >
-    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,27 +68,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, price, title, pic, summary
+    id, price, title, pic, summary, detail
   </sql>
-  <sql id="Blob_Column_List" >
-    detail
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.contentsale.pojo.ContentsExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from contents
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.contentsale.pojo.ContentsExample" >
     select
     <if test="distinct" >
@@ -105,11 +84,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from contents
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -124,20 +101,20 @@
     </if>
   </delete>
   
-  <!-- 设置： 将插入数据的主键返回并添加到Contents对象中-->
+  <!-- 设置： 将插入数据的主键返回并添加到Contents对象中-->  
   <insert id="insert" parameterType="com.contentsale.pojo.Contents" >
-   <!-- keyProperty：将查询到的主键值设置到parameterType对象的哪个属性中 -->  
-        <!-- order：SELECT LAST_INSERT_ID()语句的执行顺序（相对于insert语句来说的执行顺序） -->  
-        <!-- resultType：指定SELECT LAST_INSERT_ID()语句的结果类型 -->  
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">  
-            <!-- SELECT LAST_INSERT_ID()：得到刚insert到数据表中的记录的主键值，只适用于自增主键 -->  
-            SELECT LAST_INSERT_ID()  
-        </selectKey>  
+  <!-- keyProperty：将查询到的主键值设置到parameterType对象的哪个属性中 -->    
+        <!-- order：SELECT LAST_INSERT_ID()语句的执行顺序（相对于insert语句来说的执行顺序） -->    
+        <!-- resultType：指定SELECT LAST_INSERT_ID()语句的结果类型 -->    
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">    
+            <!-- SELECT LAST_INSERT_ID()：得到刚insert到数据表中的记录的主键值，只适用于自增主键 -->    
+            SELECT LAST_INSERT_ID()    
+        </selectKey>    
     insert into contents (id, price, title, 
       pic, summary, detail
       )
     values (#{id,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{title,jdbcType=VARCHAR}, 
-      #{pic,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{detail,jdbcType=LONGVARCHAR}
+      #{pic,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.contentsale.pojo.Contents" >
@@ -179,7 +156,7 @@
         #{summary,jdbcType=VARCHAR},
       </if>
       <if test="detail != null" >
-        #{detail,jdbcType=LONGVARCHAR},
+        #{detail,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -208,21 +185,9 @@
         summary = #{record.summary,jdbcType=VARCHAR},
       </if>
       <if test="record.detail != null" >
-        detail = #{record.detail,jdbcType=LONGVARCHAR},
+        detail = #{record.detail,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update contents
-    set id = #{record.id,jdbcType=INTEGER},
-      price = #{record.price,jdbcType=DOUBLE},
-      title = #{record.title,jdbcType=VARCHAR},
-      pic = #{record.pic,jdbcType=VARCHAR},
-      summary = #{record.summary,jdbcType=VARCHAR},
-      detail = #{record.detail,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,7 +198,8 @@
       price = #{record.price,jdbcType=DOUBLE},
       title = #{record.title,jdbcType=VARCHAR},
       pic = #{record.pic,jdbcType=VARCHAR},
-      summary = #{record.summary,jdbcType=VARCHAR}
+      summary = #{record.summary,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -254,18 +220,9 @@
         summary = #{summary,jdbcType=VARCHAR},
       </if>
       <if test="detail != null" >
-        detail = #{detail,jdbcType=LONGVARCHAR},
+        detail = #{detail,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.contentsale.pojo.Contents" >
-    update contents
-    set price = #{price,jdbcType=DOUBLE},
-      title = #{title,jdbcType=VARCHAR},
-      pic = #{pic,jdbcType=VARCHAR},
-      summary = #{summary,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.contentsale.pojo.Contents" >
@@ -273,7 +230,8 @@
     set price = #{price,jdbcType=DOUBLE},
       title = #{title,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
-      summary = #{summary,jdbcType=VARCHAR}
+      summary = #{summary,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

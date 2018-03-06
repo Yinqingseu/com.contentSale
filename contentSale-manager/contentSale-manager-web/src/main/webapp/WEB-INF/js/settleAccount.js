@@ -5,6 +5,7 @@
 	}
 	var name = 'products';
 	var products = util.getCookie(name);
+	
 	var $ = function(id){
 		return document.getElementById(id);
 	}
@@ -61,23 +62,23 @@
 		var newProducts = products.map(function(arr){
 			return {'id':arr.id,'number':arr.num};
 		});
-		console.log(newProducts);
+//		console.log(newProducts);
 		var ele = e.target;
 			layer.reset({
 				content:'确认购买吗？',
 				onconfirm:function(){
 					layer.hide();
 					loading.show();
-					
+				
 					var xhr = new XMLHttpRequest();
-					var data = JSON.stringify(newProducts);
+					var data = JSON.stringify(newProducts);//对象转换为 JSON 字符串
 					xhr.onreadystatechange = function(){
 						 if(xhr.readyState == 4){
 				                var status = xhr.status;
 				                if(status >= 200 && status < 300 || status == 304){
 				                	var json = JSON.parse(xhr.responseText);
 				                	if(json && json.code == 200){
-				                		loading.result('购买成功',function(){location.href = './account.html';});
+				                		loading.result('购买成功',function(){location.href = './account.ftl';});
 				                		util.deleteCookie(name);
 				                	}else{
 				                		alert(json.message);
@@ -89,12 +90,12 @@
 					};
 					 xhr.open('post','/api/buy');
 					 xhr.setRequestHeader('Content-Type','application/json');
-					 xhr.send(data);
+					 xhr.send(data); //后台接收内容[{"id":1,"number":1},{"id":2,"number":2}]
 				}.bind(this)
 			}).show();
 			return;
 	};
 	$('back').onclick = function(){
-		location.href = window.history.back();
+		location.href = history.go(-1);
 	}
 })(window,document);

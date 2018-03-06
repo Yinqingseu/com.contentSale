@@ -1,63 +1,45 @@
 package com.contentsale.pojo;
 
-public class UserShoppingRecord {
-    private Integer id;
-
-    private Integer contentid;
-
+public class UserShoppingRecord extends UserShoppingRecordKey {
     private Integer userid;
 
     private Double buyprice;
 
-    private String buynum;
+    private int buynum;
 
-    private Long buytime;
+    private String buytime;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public Integer getContentid() {
-        return contentid;
-    }
+	public Double getBuyprice() {
+		return buyprice;
+	}
 
-    public void setContentid(Integer contentid) {
-        this.contentid = contentid;
-    }
+	public void setBuyprice(Double buyprice) {
+		this.buyprice = buyprice;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public int getBuynum() {
+		return buynum;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public void setBuynum(int buynum) {
+		this.buynum = buynum;
+	}
 
-    public Double getBuyprice() {
-        return buyprice;
-    }
+	public String getBuytime() {
+		return buytime;
+	}
 
-    public void setBuyprice(Double buyprice) {
-        this.buyprice = buyprice;
-    }
+	public void setBuytime(String buytime) {
+		this.buytime = buytime;
+	}
 
-    public String getBuynum() {
-        return buynum;
-    }
 
-    public void setBuynum(String buynum) {
-        this.buynum = buynum == null ? null : buynum.trim();
-    }
-
-    public Long getBuytime() {
-        return buytime;
-    }
-
-    public void setBuytime(Long buytime) {
-        this.buytime = buytime;
-    }
 }

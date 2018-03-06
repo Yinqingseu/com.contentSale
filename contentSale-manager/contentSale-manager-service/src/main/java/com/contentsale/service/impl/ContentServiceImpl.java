@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.contentsale.mapper.ContentsMapper;
+import com.contentsale.mapper.UserShoppingRecordMapper;
 import com.contentsale.pojo.Contents;
 import com.contentsale.pojo.ContentsExample;
+import com.contentsale.pojo.UserShoppingRecordExample;
 import com.contentsale.pojo.ContentsExample.Criteria;
 import com.contentsale.service.ContentService;
 
@@ -21,7 +23,8 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	private ContentsMapper contentsMapper;//注入接口代理对象
 	
-	
+	@Autowired
+	private UserShoppingRecordMapper shoppingRecordMapper;
 	
 	
 	/**
@@ -61,7 +64,7 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	@Override
 	public void insertContent(Contents content) {
-		int record = contentsMapper.insert(content);
+		contentsMapper.insert(content);
 	}
 	
 	/**
@@ -85,5 +88,14 @@ public class ContentServiceImpl implements ContentService {
 		contentsMapper.updateByExample(content, example);
 	}
 	
+	/**
+	 * 删除指定ID内容
+	 */
+	@Override
+	public void deleteContentById(int contentId) {
+		contentsMapper.deleteByPrimaryKey(contentId);
+	}
+	
+
 
 }

@@ -1,6 +1,8 @@
 com\contentsale\service\ContentService.class
-com\contentsale\service\impl\UserServiceImpl.class
 com\contentsale\service\impl\UserShoppingRecordServiceImpl.class
 com\contentsale\service\impl\ContentServiceImpl.class
 com\contentsale\service\UserShoppingRecordService.class
+com\contentsale\service\impl\ProductServiceImpl.class
 com\contentsale\service\UserService.class
+com\contentsale\service\impl\UserServiceImpl.class
+com\contentsale\service\ProductService.class

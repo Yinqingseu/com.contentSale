@@ -12,4 +12,5 @@ public interface ContentService {
 	void insertContent(Contents content);//插入内容
 	void updateContentById(Integer id,String title ,String summary ,
 			 String image ,String detail, Double price);//更新对应id内容
+	void deleteContentById(int contentId);//删除指定ID内容
 }

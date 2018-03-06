@@ -1,5 +1,6 @@
 package com.contentsale.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.contentsale.pojo.Contents;
+import com.contentsale.pojo.Product;
 import com.contentsale.pojo.User;
+import com.contentsale.pojo.UserShoppingRecord;
 import com.contentsale.service.ContentService;
+import com.contentsale.service.ProductService;
 import com.contentsale.service.UserService;
+import com.contentsale.service.UserShoppingRecordService;
 
 
 /**
@@ -33,62 +38,98 @@ public class ContentController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private UserShoppingRecordService shoppingRecordService;
+	
+	@Autowired
+	private ProductService productService;
+	
 	/**
 	 * 默认页面内容展示
 	 * 根据用户类型展示页面内容
 	 * @param map
 	 * @param request
-	 * @param type
+	 * @param type 0:所有内容展示 1：未购买内容展示
 	 * @return
 	 */
 	@RequestMapping(value= {"/","/index",""})
 	public String indexShow(Model map,HttpServletRequest request, HttpSession session,
 			@RequestParam(value = "type", required = false) Integer type) {
-		System.out.println("进入index");
-		//内容获取
-		List<Contents> productList = contentService.getAllContents();
-		System.out.println("内容列表长度："+productList.size());
-		map.addAttribute("productList", productList);
 		//用户类型获取
 		User user = (User) session.getAttribute("user");
 		if(user == null) {
-			type = 0;
-			map.addAttribute("type", 0);
 			map.addAttribute("user",null);
+			return "redirect:login";
 		}else {
-			type = user.getUsertype() & 0xFF; //获取用户类型,Byte转int	
-			map.addAttribute("type", type);
 			map.addAttribute("user", user);
 		}
-		System.out.println("用户类型type："+type);
+		//内容获取
+		List<Contents> contents = contentService.getAllContents();
+		List<Product> productList = new ArrayList<Product>();
+		List<Product> unBuyedList = new ArrayList<Product>();
+		for(Contents content:contents) {
+			//判断该内容当前用户是否购买
+			boolean isBuy = shoppingRecordService.isContentBuyed(content.getId(), user.getId());
+//			System.out.println("conent title:"+content.getTitle()+"当前用户是否购买："+isBuy);
+			//获取内容售出数量
+			int sellNum = shoppingRecordService.contentSellNum(content.getId());
+			boolean isSell = false;
+			if(sellNum != 0) {
+				isSell = true;
+			}
+			Product product = productService.AssignProductAttr(content, isBuy, isSell,sellNum);
+			productList.add(product);
+			if(!isBuy) {
+				unBuyedList.add(product);
+			}
+		}
+		if(type == null) {
+			map.addAttribute("productList", productList);
+		}else {
+			map.addAttribute("productList", unBuyedList);
+		}
 		return "index";
 	}
 	
 	
 	/**
 	 * 内容查看页面
-	 * @param id
+	 * @param id 内容ID号
 	 * @param session
 	 * @param map
 	 * @return
 	 */
 	@RequestMapping("/show")
 	public String detailShow(@RequestParam("id") int id,HttpSession session,Model map) {
-		//根据内容ID获取内容
-		Contents product = contentService.getContentById(id);
-		map.addAttribute("product", product);
 		//用户对象获取
 		User user = (User) session.getAttribute("user");
 		if(user == null) {
-			map.addAttribute("type", 0);
-			map.addAttribute("user",null);
+			return "redirect:login";
 		}else {
-			Integer type = user.getUsertype() & 0xFF; //获取用户类型,Byte转int	
-			map.addAttribute("type", type);
 			map.addAttribute("user", user);
 		}
+		//根据内容ID获取内容
+		Contents content = contentService.getContentById(id);
+		System.out.println("content detail:"+content.getDetail());
+		//当前用户购买记录获取
+		UserShoppingRecord record = shoppingRecordService.getShoppingRecordByContentId(id,user.getId());
+		if(record == null) { //未购买过
+			Product product = productService.AssignProductAttr(content, false, false, 0, null, null);
+			map.addAttribute("product", product);
+			System.out.println("product detail:"+product.getDetail());
+		}else {//购买过
+			int buyNum = record.getBuynum();
+			Double buyPrice = record.getBuyprice();
+			String buyTime = record.getBuytime();
+			//赋值product交互对象
+			Product product = productService.AssignProductAttr(content, true, true, buyNum, buyPrice, buyTime);
+			System.out.println("product detail:"+product.getDetail());
+			map.addAttribute("product", product);
+		}
+		
 		return "show";
 	}
+	
 	
 	/**
 	 * 内容编辑页面
